@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Game
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div *ngIf="currentQuestion">
+
+    <p class="center">Question number: <span class="numBold">{{ questionNumber }}</span> of 20</p>
+    <p class="blue">{{ currentQuestion.question }}</p>
+
+    <ion-list>
+      <button *ngFor="let answer of currentQuestion.answers" class="button button-md button-default button-default-md button-md-light" (click)="handleAnswer(answer)">{{ answer }}</button>
+    </ion-list>
+
+    <div class="score">
+        <p>Score</p>
+        <p class="bold">{{ score }}</p>
+      </div>
+
+  </div>
+
+  <div class="btn-play" *ngIf="!currentQuestion">
+    <p class="center mgt40">Ready?</p>
+    <button ion-button icon-end="" ion-button="" (tap)="getRandomQuestion()" class="disable-hover button button-md button-default button-default-md">
+      <span class="button-inner">
+        Play
+        <ion-icon name="arrow-forward" role="img" class="icon icon-md ion-md-arrow-forward" aria-label="arrow forward"></ion-icon>
+      </span>
+        <div class="button-effect" style="transform: translate3d(-31px, -55px, 0px) scale(1); height: 125px; width: 125px; opacity: 0; transition: transform 308ms ease 0s, opacity 216ms ease 92ms;"></div>
+    </button>
+  </div>
+
+  <div class="isCorrect" [ngClass]="{'isNotCorrect' : answerOutcome != 'Correct!'}">{{ answerOutcome }}</div>
+
+</ion-content>

@@ -1,17 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Trivia Quizz</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+  <h2>Welcome to Trivia Quizz</h2>
+
+  <h4>Login:</h4>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button id="btnLogin" ion-button (tap)="goToLoggedPage()">Login</button>
+  <button id="btnSubscribe" ion-button (tap)="goToSubscribePage()">Or subscribe</button>
+
+  <h4>Game rules:</h4>
+  <i>You have to reply 20 questions with a time limit for an entire game.</i>
+  <p>Good luck!</p>
+
+  <button id="btnStart" ion-button (tap)="goToGamePage()">Let's start</button>
+
 </ion-content>

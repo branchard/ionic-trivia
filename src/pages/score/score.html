@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      My scores
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <button ion-button (tap)="storeScore()">Store my scores</button>
+  <button ion-button (tap)="getMyScore()">Get my scores</button>
+
+  
+
+  <ion-list>
+    <h4>Your scores:</h4>
+    <ion-item>
+      <ion-icon name="ionic" item-start></ion-icon>
+      <span class="bold">{{ score }}</span>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
