@@ -1,50 +1,59 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
+import { Account } from '../../models/account';
+
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
+  account: Account = {
+    username: '',
+    picture: ''
   };
 
-  // Our translated text strings
   private loginErrorString: string;
 
   constructor(public navCtrl: NavController,
     public user: User,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
-
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
+    public toastCtrl: ToastController) {
+      this.user.isLogged().then(account => {
+        if(account && account.username && account.picture){
+          this.navCtrl.push(MainPage);
+        }
+      });
   }
 
-  // Attempt to login in through our User service
   doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
-    }, (err) => {
-      this.navCtrl.push(MainPage);
-      // Unable to log in
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
+    if(this.account.username && this.account.picture){
+      this.loginErrorString = null;
+      this.user.login(this.account).then(() => {
+        this.navCtrl.push(MainPage);
+      }).catch(err => {
+        this.loginErrorString = 'Unable to login'
       });
-      toast.present();
-    });
+    }else{
+      this.loginErrorString = 'You must set your username and picture'
+    }
+  }
+
+  pictureChangeListener(event) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.account.picture = reader.result;
+    };
   }
 }
