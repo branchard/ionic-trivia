@@ -8,17 +8,18 @@
 
 <ion-content padding>
 
-  <button ion-button (tap)="storeScore()">Store my scores</button>
-  <button ion-button (tap)="getMyScore()">Get my scores</button>
-
+  <button id="btnSendScore" ion-button (tap)="storeScore()">Send my scores to the leaderboard</button>
   
+  <!-- <button ion-button (tap)="getMyScore()">Get my scores</button> -->
 
   <ion-list>
     <h4>Your scores:</h4>
     <ion-item>
       <ion-icon name="ionic" item-start></ion-icon>
-      <span class="bold">{{ score }}</span>
+      <span class="bold">{{ score }}</span><span *ngIf="score"> pts</span>
     </ion-item>
   </ion-list>
+
+  <button id="btnGoHome" ion-button (tap)="playAgain()">Play again</button>
 
 </ion-content>

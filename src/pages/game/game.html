@@ -14,7 +14,7 @@
     <p class="blue">{{ currentQuestion.question }}</p>
 
     <ion-list>
-      <button *ngFor="let answer of currentQuestion.answers" class="button button-md button-default button-default-md button-md-light" (click)="handleAnswer(answer)">{{ answer }}</button>
+      <button *ngFor="let answer of currentQuestion.answers" class="button button-md button-default button-default-md button-md-light" (tap)="handleAnswer(answer)">{{ answer }}</button>
     </ion-list>
 
     <div class="score">

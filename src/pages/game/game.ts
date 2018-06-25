@@ -18,6 +18,7 @@ export class GamePage {
   currentQuestion: any;
   answerOutcome: string;
   score: number = 0;
+  myScore: number;
 
   constructor(public navCtrl: NavController, private quizzApiService: QuizzApiService) {
     this.randomQuestion = Math.floor(Math.random() * 10);
@@ -47,7 +48,7 @@ export class GamePage {
     };
     console.log(this.currentQuestion);
     this.getQuestionNumber();
-    this.endGame();
+    this.endGameAndShowScore();
   }
 
   handleAnswer(answer) {
@@ -70,14 +71,15 @@ export class GamePage {
     this.questionNumber += 1;
   }
 
-  endGame() {
+  endGameAndShowScore() {
     if(this.questionNumber > 3) {
       // this.navCtrl.push(ScorePage);
-      //this.navCtrl.parent.select(2);
 
       this.navCtrl.push(ScorePage, {
-        score: this.score
+        myScore: this.score
       });
+
+      // this.navCtrl.parent.select(2);
       
     }
   }

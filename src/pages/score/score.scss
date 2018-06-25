@@ -2,5 +2,17 @@ page-score {
     h4 {
         color: #488AFF;
     }
-    
+    .bold {
+        color: #3E3E3E;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+    #btnSendScore {
+        margin: 20px auto;
+        display: block;
+    }
+    #btnGoHome {
+        margin: 60px auto 0 auto;
+        display: block;
+    }
 }
