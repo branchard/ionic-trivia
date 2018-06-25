@@ -9,6 +9,13 @@
 <ion-content padding>
 
   <div *ngIf="currentQuestion">
+    
+      <div>
+          <h1>Countdown timer</h1>
+          <h2>{{countDown | async | formatTime}}</h2>
+      </div>
+      
+      <button [disabled]="counter !== 0">OK</button>
 
     <p class="center">Question number: <span class="numBold">{{ questionNumber }}</span> of 20</p>
     <p class="blue">{{ currentQuestion.question }}</p>

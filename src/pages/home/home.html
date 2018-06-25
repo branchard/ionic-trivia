@@ -1,33 +1,15 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Trivia Quizz</ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
+<ion-content no-scroll padding>
+  <ion-icon name="cog" class="settings-icon" (click)="presentSettingsModal()"></ion-icon>
 
+  <!-- 
   <h2>Welcome to Trivia Quizz</h2>
-
-  <h4>Login:</h4>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-  </ion-list>
-
-  <button id="btnLogin" ion-button (tap)="goToLoggedPage()">Login</button>
-  <button id="btnSubscribe" ion-button (tap)="goToSubscribePage()">Or subscribe</button>
-
   <h4>Game rules:</h4>
   <i>You have to reply 20 questions with a time limit for an entire game.</i>
-  <p>Good luck!</p>
+  <p>Good luck!</p> 
+  -->
 
-  <button id="btnStart" ion-button (tap)="goToGamePage()">Let's start</button>
-
+  <button ion-button (tap)="goToGamePage()" color="primary" class="start" round>Start game</button>
 </ion-content>
+
+  
