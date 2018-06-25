@@ -1,5 +1,5 @@
 <ion-content no-scroll>
-  <ion-icon name="cog" class="settings-icon" (click)="presentSettingsModal()"></ion-icon>
+  <ion-icon name="cog" class="settings-icon" (tap)="presentSettingsModal()"></ion-icon>
   <div class="game-start">
       <ion-list>
         <ion-item>
@@ -15,6 +15,6 @@
           </ion-select>
         </ion-item>
       </ion-list>
-    <button ion-button color="primary" class="start" round (click)="startGame()">Start game</button>
+    <button ion-button color="primary" class="start" round (tap)="startGame()">Start game</button>
   </div>
 </ion-content>

@@ -16,7 +16,7 @@ import { LoginPage } from '../pages';
 
 		<ion-content>
 			<ion-list>
-				<button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+				<button menuClose ion-item *ngFor="let p of pages" (tap)="openPage(p)">
 					{{p.title}}
 				</button>
 			</ion-list>
