@@ -3,6 +3,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
+import { HomePage } from '../';
 import { Account } from '../../models/account';
 
 /**
@@ -28,9 +29,9 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController) {
-      this.user.isLogged().then(account => {
+      this.user.load().then(account => {
         if(account && account.username && account.picture){
-          this.navCtrl.push(MainPage);
+          this.navCtrl.push(HomePage);
         }
       });
   }
@@ -39,7 +40,7 @@ export class LoginPage {
     if(this.account.username && this.account.picture){
       this.loginErrorString = null;
       this.user.login(this.account).then(() => {
-        this.navCtrl.push(MainPage);
+        this.navCtrl.push(HomePage);
       }).catch(err => {
         this.loginErrorString = 'Unable to login'
       });

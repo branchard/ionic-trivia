@@ -2,7 +2,11 @@
 export const FirstRunPage = 'TutorialPage';
 
 export const LoginPage = 'LoginPage';
+export const HomePage = 'HomePage';
+export const SettingsPage = 'SettingsPage';
+
 export const WelcomePage = 'WelcomePage';
+
 
 // The main page the user will see as they use the app over a long period of time.
 // Change this if not using tabs
