@@ -1,4 +1,20 @@
 <ion-content no-scroll>
   <ion-icon name="cog" class="settings-icon" (click)="presentSettingsModal()"></ion-icon>
-  <button ion-button color="primary" class="start" round>Start game</button>
+  <div class="game-start">
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Category</ion-label>
+          <ion-select [(ngModel)]="category">
+            <ion-option *ngFor="let category of categories" [value]="category">{{category.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Difficulty</ion-label>
+          <ion-select [(ngModel)]="difficulty">
+            <ion-option *ngFor="let difficulty of getDifficultiesKeys()" [value]="difficulties[difficulty]">{{ difficulty }}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    <button ion-button color="primary" class="start" round (click)="startGame()">Start game</button>
+  </div>
 </ion-content>

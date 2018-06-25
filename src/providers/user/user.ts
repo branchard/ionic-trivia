@@ -33,8 +33,8 @@ export class User {
       mergedAccount.username = account.username;
     }
 
-    if(account.picture && account.picture.length > 0){
-      mergedAccount.picture = account.picture;
+    if(account.pictureUrl && account.pictureUrl.length > 0){
+      mergedAccount.pictureUrl = account.pictureUrl;
     }
 
     return this.storage.set(this.SETTINGS_KEY, mergedAccount);

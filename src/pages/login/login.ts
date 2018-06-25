@@ -21,23 +21,23 @@ import { Account } from '../../models/account';
 export class LoginPage {
   account: Account = {
     username: '',
-    picture: ''
+    pictureUrl: ''
   };
 
-  private loginErrorString: string;
+  loginErrorString: string;
 
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController) {
       this.user.load().then(account => {
-        if(account && account.username && account.picture){
+        if(account && account.username && account.pictureUrl){
           this.navCtrl.push(HomePage);
         }
       });
   }
 
   doLogin() {
-    if(this.account.username && this.account.picture){
+    if(this.account.username && this.account.pictureUrl){
       this.loginErrorString = null;
       this.user.login(this.account).then(() => {
         this.navCtrl.push(HomePage);
@@ -49,12 +49,12 @@ export class LoginPage {
     }
   }
 
-  pictureChangeListener(event) {
-    let file = event.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.account.picture = reader.result;
-    };
-  }
+  // pictureChangeListener(event) {
+  //   let file = event.target.files[0];
+  //   let reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     this.account.pictureUrl = reader.result;
+  //   };
+  // }
 }

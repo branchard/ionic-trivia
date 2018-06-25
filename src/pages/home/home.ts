@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { SettingsPage } from '../';
-
-/**
- * Generated class for the HomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { GameProvider } from '../../providers/game/game';
+import { Category, Difficulties } from '../../models/game';
+import { GamePage } from '../';
 
 @IonicPage()
 @Component({
@@ -15,13 +11,41 @@ import { SettingsPage } from '../';
   templateUrl: 'home.html',
 })
 export class HomePage {
+  public categories: Array<Category> = [GameProvider.DEFAULT_CATEGORY];
+  public difficulties = Difficulties;
+  public category: Category = this.categories[0];
+  public keys = Object.keys;
+  public difficulty: Difficulties = Difficulties.easy;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController, public gameProvider: GameProvider) {
   }
 
   presentSettingsModal() {
     let profileModal = this.modalCtrl.create(SettingsPage);
     profileModal.present();
+  }
+
+  getDifficultiesKeys() {
+    return Object.keys(this.difficulties).filter(key => !isNaN(Number(this.difficulties[key])));
+  }
+
+  ionViewWillEnter() {
+    this.gameProvider.getCategories().then(categories => {
+      this.categories = this.categories.concat(categories.map(cat => {
+        return {
+          id: cat.id + 1,
+          name: cat.name
+        }
+      }));
+    });
+  }
+
+  startGame(){
+    console.log('Start!');
+    this.gameProvider.setCategory(this.category);
+    this.gameProvider.setDifficulty(this.difficulty);
+    this.gameProvider.startTimer();
+    this.navCtrl.push(GamePage);
   }
 }

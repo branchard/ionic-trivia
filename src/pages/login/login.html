@@ -14,8 +14,8 @@
         <ion-input type="text" name="username" [(ngModel)]="account.username" required="true"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label fixed>Picture</ion-label>
-        <ion-input type="file" name="picture" (change)="pictureChangeListener($event)" accept="image/*"></ion-input>
+        <ion-label fixed>Picture (URL)</ion-label>
+        <ion-input type="url" name="picture-url" [(ngModel)]="account.pictureUrl" required="true"></ion-input>
       </ion-item>
       <div padding>
         <button ion-button color="primary" class="login" round>Login</button>

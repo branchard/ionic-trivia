@@ -11,7 +11,7 @@ import { User } from '../../providers';
 export class SettingsPage {
   account: Account = {
     username: '',
-    picture: ''
+    pictureUrl: ''
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
@@ -32,14 +32,4 @@ export class SettingsPage {
     this.user.set(this.account);
     this.dismiss();
   }
-
-  pictureChangeListener(event) {
-    let file = event.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.account.picture = reader.result;
-    };
-  }
-
 }

@@ -12,9 +12,19 @@ page-home {
         text-shadow: 1px 1px 4px #00000047;
     }
 
-    button.start {
+    .game-start {
+        position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);
         top: 50%;
+
+        ion-item {
+            // color: #fff;
+            // background-color: #488aff;
+        }
+
+        button.start {
+            width: 100%;
+        }
     }
 }
