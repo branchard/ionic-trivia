@@ -15,6 +15,7 @@ export interface Answer {
 }
 
 export interface Question {
+    category: string;
     text: string;
     answers: Array<Answer>;
 }
@@ -24,5 +25,6 @@ export interface Game {
     category: Category;
     score: number;
     timerStart: number;
+    timer: number;
     questions: Array<Question>
 }

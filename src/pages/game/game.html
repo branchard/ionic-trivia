@@ -1,13 +1,24 @@
 <ion-content padding>
     <div *ngIf="game && game.questions">
-      {{ game.questions[currentQuestionIndex].text }}
-      <ion-list>
+      <div class="info-wrapper">
+          <div>
+            Score:<br> {{ game.score }}
+          </div>
+          <div>
+            Timer:<br> {{ game.timer }} sec
+          </div>
+          <div>
+            Question:<br> {{ currentQuestionIndex + 1 }}/20
+          </div>
+        </div>
+      <div class="question-wrapper">
+        <div class="category">{{ game.questions[currentQuestionIndex].category }}</div>
+        {{ game.questions[currentQuestionIndex].text }}
+      </div>
+      <ion-list class="answers-wrapper">
         <button *ngFor="let answer of game.questions[currentQuestionIndex].answers" class="button button-md button-default button-default-md button-md-light" (tap)="handleAnswer(answer)">{{ answer.text }}</button>
       </ion-list>
-      <div class="isCorrect" [ngClass]="{'isNotCorrect' : answerOutcome != 'Correct!'}">{{ answerOutcome }}</div>
-      <div class="score">
-          <p>Score</p>
-          <p class="bold">{{ game.score }}</p>
-        </div>
+      
+      <div *ngIf="answerOutcome" class="outcome" [ngClass]="{'wrong' : answerOutcome != 'Correct!'}">{{ answerOutcome }}</div>
     </div>
 </ion-content>

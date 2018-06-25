@@ -40,8 +40,7 @@ export class HomePage {
     console.log('Start!');
     this.gameProvider.setCategory(this.category);
     this.gameProvider.setDifficulty(this.difficulty);
-    this.gameProvider.loadQuestions().then(() => {
-      this.gameProvider.startTimer();
+    this.gameProvider.start().then(() => {
       this.navCtrl.push(GamePage);
     });
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category, Game, Difficulties, Question } from '../../models/game';
 import { Api } from '../api/api';
+import { User } from '..';
 
 @Injectable()
 export class GameProvider {
@@ -10,17 +11,45 @@ export class GameProvider {
   };
   private static CATEGORIES_URL = 'https://opentdb.com/api_category.php';
   private static QUESTIONS_URL = 'https://opentdb.com/api.php';
+  private static LEADERBOARD_URL = 'https://leaderboard.lp1.eu/api/json';
+  private static SCORE_URL = 'https://leaderboard.lp1.eu/api/score';
   private currentQuestionIndex = 0;
   public game: Game = {
     difficulty: null,
     category: null,
     score: null,
     timerStart: null,
-    questions: null
+    questions: null,
+    timer: 0
   };
 
-  public constructor(public api: Api) {
-    console.log('Hello GameProvider Provider');
+  private timerInterval;
+
+  public gameEnded: boolean = false;
+
+  public constructor(public api: Api, public user: User) {
+  }
+
+  public postScore() {
+    this.api.post(GameProvider.SCORE_URL, {
+      "nickname": this.user.account.username, 
+      "score": this.game.score, 
+      "time": this.game.timer, 
+      "avatar_url":  this.user.account.pictureUrl
+    });
+  }
+
+  public getLeaderboard(): Promise<Array<Category>> {
+    console.log('getLeaderboard');
+    return new Promise((resolve, reject) => {
+      this.api.get(GameProvider.LEADERBOARD_URL).subscribe((res: any) => {
+        resolve(res.sort((a, b) => {
+          return b.score - a.score;
+        }).slice(0, 5));
+      }, err => {
+        reject(err);
+      });
+    });
   }
 
   public getCategories(): Promise<Array<Category>> {
@@ -34,7 +63,7 @@ export class GameProvider {
     });
   }
 
-  public loadQuestions(): Promise<void>{
+  private loadQuestions(): Promise<void>{
     return new Promise((resolve, reject) => {
       this.api.get(GameProvider.QUESTIONS_URL, {
         amount: 20,
@@ -45,6 +74,7 @@ export class GameProvider {
         console.log(res);
         this.game.questions = res.results.map((result) => {
           return {
+            category: atob(result.category),
             text: atob(result.question),
             answers: [
               {
@@ -75,15 +105,35 @@ export class GameProvider {
     this.game.difficulty = difficulty;
   }
 
-  public startTimer(){
+  public start(): Promise<void>{
+    return new Promise((resolve, reject) => {
+      this.gameEnded = false;
+      this.currentQuestionIndex = 0;
+      this.game.score = 0;
+      this.game.timer = 0;
+      this.startTimer();
+      this.loadQuestions().then(() => {
+        resolve();
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  }
+
+  private startTimer(){
     this.game.timerStart = performance.now();
+
+    this.timerInterval = setInterval(() => {
+      this.game.timer = Math.trunc((performance.now() - this.game.timerStart)/1000)
+    }, 1000);
   }
 
-  public getCurrentQuestionAndNext(){
-    return this.game.questions[this.currentQuestionIndex++];
+  public stop(){
+    this.stopTimer();
+    this.gameEnded = true;
   }
 
-  public hasNextQuestion(): boolean {
-    return this.game.questions.length >= this.currentQuestionIndex;
+  private stopTimer() {
+    clearInterval(this.timerInterval);
   }
 }

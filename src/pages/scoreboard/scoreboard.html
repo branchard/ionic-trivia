@@ -1,0 +1,28 @@
+<ion-content>
+  <div padding>
+    <div *ngIf="leaderboard" class="leaderboard">
+      <span>Top 5 players</span>
+      <table>
+        <thead>
+            <th>Nickname</th>
+            <th>Score</th>
+            <th>Time</th>
+        </thead>
+        <tr *ngFor='let lead of leaderboard'>
+          <th>{{ lead.nickname }}</th>
+          <th>{{ lead.score }}</th>
+          <th>{{ lead.time }}</th>
+        </tr>
+      </table>
+    </div>
+    <div class="score">
+        <div>
+            Score:<br> {{ gameProvider.game.score }}
+          </div>
+          <div>
+            Timer:<br> {{ gameProvider.game.timer }} sec
+          </div>
+    </div>
+  </div>
+  <button ion-button color="primary" class="restart" round (click)="restart()">Restart</button>
+</ion-content>

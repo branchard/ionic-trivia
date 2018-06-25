@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { GameProvider } from '../../providers/game/game';
 import { Question, Game, Answer } from '../../models/game';
+import { ScoreboardPage } from '../';
 
 /**
  * Generated class for the GamePage page.
@@ -28,17 +29,27 @@ export class GamePage {
   }
 
   handleAnswer(answer: Answer) {
-    console.log(answer);
+    if(this.gameProvider.gameEnded){
+      return;
+    }
+
     if(answer.correct) {
       this.answerOutcome = 'Correct!';
       this.game.score += this.game.difficulty;
     }else {
       this.answerOutcome = 'Wrong, the good answer was: ' + this.game.questions[this.currentQuestionIndex].answers.filter(answer => {
         return answer.correct;
-      });
+      })[0].text;
       this.game.score -= this.game.difficulty;
     }
-    //this.getRandomQuestion();
-    this.currentQuestionIndex++;
+
+    if(this.currentQuestionIndex + 1 < this.game.questions.length){
+      this.currentQuestionIndex++;
+    }else{
+      console.log('end');
+      this.gameProvider.stop();
+      this.gameProvider.postScore();
+      this.navCtrl.push(ScoreboardPage);
+    }
   }
 }

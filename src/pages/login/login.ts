@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers';
-import { MainPage } from '../';
 import { HomePage } from '../';
 import { Account } from '../../models/account';
 
@@ -48,13 +47,4 @@ export class LoginPage {
       this.loginErrorString = 'You must set your username and picture'
     }
   }
-
-  // pictureChangeListener(event) {
-  //   let file = event.target.files[0];
-  //   let reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     this.account.pictureUrl = reader.result;
-  //   };
-  // }
 }
