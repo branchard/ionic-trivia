@@ -32,12 +32,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.gameProvider.getCategories().then(categories => {
-      this.categories = this.categories.concat(categories.map(cat => {
-        return {
-          id: cat.id + 1,
-          name: cat.name
-        }
-      }));
+      this.categories = this.categories.concat(categories);
     });
   }
 
@@ -45,7 +40,9 @@ export class HomePage {
     console.log('Start!');
     this.gameProvider.setCategory(this.category);
     this.gameProvider.setDifficulty(this.difficulty);
-    this.gameProvider.startTimer();
-    this.navCtrl.push(GamePage);
+    this.gameProvider.loadQuestions().then(() => {
+      this.gameProvider.startTimer();
+      this.navCtrl.push(GamePage);
+    });
   }
 }

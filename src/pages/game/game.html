@@ -1,3 +1,13 @@
 <ion-content padding>
-  Vue du jeu
+    <div *ngIf="game && game.questions">
+      {{ game.questions[currentQuestionIndex].text }}
+      <ion-list>
+        <button *ngFor="let answer of game.questions[currentQuestionIndex].answers" class="button button-md button-default button-default-md button-md-light" (tap)="handleAnswer(answer)">{{ answer.text }}</button>
+      </ion-list>
+      <div class="isCorrect" [ngClass]="{'isNotCorrect' : answerOutcome != 'Correct!'}">{{ answerOutcome }}</div>
+      <div class="score">
+          <p>Score</p>
+          <p class="bold">{{ game.score }}</p>
+        </div>
+    </div>
 </ion-content>

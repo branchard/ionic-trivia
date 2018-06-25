@@ -11,7 +11,7 @@ export class Items {
     "profilePic": "assets/img/speakers/bear.jpg",
     "about": "Burt is a Bear.",
   };
-// TODO faire un model level.ts
+  
   constructor() {
     let items = [
       {
